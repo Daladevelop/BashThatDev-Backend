@@ -13,7 +13,7 @@ class GameEngine:
 		msg_type = msg['type']
 		key = None
 		try:
-			key = self.keys[msg['key']]
+			key = self.keys[msg['keyCode']]
 		except KeyError:
 			pass
 
