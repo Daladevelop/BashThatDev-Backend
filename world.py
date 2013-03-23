@@ -82,20 +82,29 @@ class Player(Rect):
 
         """
 
+        print "Key received: action(%s), key(%s)" % (action, key)
+
         if action == 'pressed':
+            print "Key pressed",
             if key == 'left':
+                print "left"
                 self.forcex += Player.speed
             if key == 'right':
+                print "right"
                 self.forcex += -Player.speed
             if key == 'space':
+                print "space"
                 if not self.jumping:
                     self.forcey = jump_force
                     self.jumping = True
 
         elif action == 'released':
+            print "Key released",
             if key == 'left':
+                print "left"
                 self.forcex -= Player.speed
             if key == 'right':
+                print "right"
                 self.forcex -= -Player.speed
 
     def update(self, world):
@@ -141,9 +150,11 @@ class Player(Rect):
 
     def get_state(self):
         state = {}
-        state['pos'] = (self.x, self.y)
-        state['vel'] = (self.velx, self.vely)
-        state['jumping'] = (self.jumping)
+        state['pos_x'] = self.x
+        state['pos_y'] = self.y
+        state['vel_x'] = self.velx
+        state['vel_y'] = self.vely
+        state['is_jumping'] = self.jumping
         return state
 
 
