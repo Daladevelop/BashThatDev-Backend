@@ -1,9 +1,18 @@
+klient -> server
+{
+
+
+{"type":"press","keyCode":40}
+
+
+}
 JSON server -> klient
 {
 	world_width(int),
 	world_height(int),
 	player_count(int),
 	world_tiles [
+
 		[
 			type(int)
 		], ...
