@@ -12,6 +12,7 @@ class BroadcastProtocol(WebSocketServerProtocol):
 			self.factory.broadcast("'%s' from %s" % (msg, self.peerstr))
 			
 	def connectionLost(self,reason):
+		print "CONNECTION LOST"
 		WebSocketServerProtocol.connectionLost(self,reason)
 		self.factory.unregister(self)
 
@@ -33,6 +34,7 @@ class BroadcastFactory(WebSocketServerFactory):
 		print "register"
 		if not client in self.clients:
 			print "registered: " + client.peerstr
+			self.clients.append(client)
 		else:
 			print "client client already..."
 
@@ -45,6 +47,7 @@ class BroadcastFactory(WebSocketServerFactory):
 
 	def broadcast(self,msg):
 		print "broadcast '%s'" % msg
+		print len(self.clients)
 		for c in self.clients:
 			c.sendMessage(msg)
 
