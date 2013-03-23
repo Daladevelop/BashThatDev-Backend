@@ -63,9 +63,10 @@ class Player(Rect):
     width = 1./48
     height = 1./48
 
-    def __init__(self, start_x, start_y):
+    def __init__(self, uid, start_x, start_y):
         Rect.__init__(self, start_x, start_y,
                 Player.width, Player.height)
+        self.uid = uid
         self.velx = 0
         self.vely = 0
         self.forcex = 0
@@ -143,6 +144,8 @@ class Player(Rect):
         state['pos'] = (self.x, self.y)
         state['vel'] = (self.velx, self.vely)
         state['jumping'] = (self.jumping)
+        return state
+
 
 def _create_test_world():
     """FIXME: Temporary function for creating test world"""
