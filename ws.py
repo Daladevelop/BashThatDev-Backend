@@ -48,7 +48,7 @@ class BroadcastFactory(WebSocketServerFactory):
 #		self.broadcast("TICK")
 		gameserver.update()
 		self.broadcast(json.dumps(gameserver.get_state()))
-		reactor.callLater(0.5, self.tick)
+		reactor.callLater(0.23, self.tick)
 
 	def register(self, client):
 		print "register"
