@@ -88,10 +88,10 @@ class Player(Rect):
             print "Key pressed",
             if key == 'left':
                 print "left"
-                self.forcex += Player.speed
+                self.forcex += -Player.speed
             if key == 'right':
                 print "right"
-                self.forcex += -Player.speed
+                self.forcex += Player.speed
             if key == 'space':
                 print "space"
                 if not self.jumping:
@@ -102,10 +102,10 @@ class Player(Rect):
             print "Key released",
             if key == 'left':
                 print "left"
-                self.forcex -= Player.speed
+                self.forcex -= -Player.speed
             if key == 'right':
                 print "right"
-                self.forcex -= -Player.speed
+                self.forcex -= Player.speed
 
     def update(self, world):
         """Update physics on object"""
@@ -127,25 +127,25 @@ class Player(Rect):
         top_cent = self.top_center()
         if not world.is_passable(top_cent.x, top_cent.y):
             # Snap to bottom of world tile
-            self.y = float(int(self.y + 1))
+            #self.y = float(int(self.y + 1))
             self.vely = 0
 
         # Check if bottom center is in wall
         bot_cent = self.bottom_center()
         if not world.is_passable(bot_cent.x, bot_cent.y):
-            self.y = float(int(self.y))
+            #self.y = float(int(self.y))
             self.vely = 0
 
         # Check if left center is in wall
         l_cent = self.left_center()
         if not world.is_passable(l_cent.x, l_cent.y):
-            self.x = float(int(self.x + 1))
+            #self.x = float(int(self.x + 1))
             self.velx = 0
 
         # Check if right center is in wall
         r_cent = self.right_center()
         if not world.is_passable(r_cent.x, r_cent.y):
-            self.x = float(int(self.x))
+            #self.x = float(int(self.x))
             self.velx = 0
 
     def get_state(self):
