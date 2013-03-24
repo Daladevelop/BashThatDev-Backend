@@ -13,6 +13,10 @@ class World:
 
     def is_passable(self, x, y):
         x, y = int(x), int(y)
+        if x < 0 or x >= self.width:
+            return False
+        if y < 0 or y >= self.height:
+            return False
         return self[x][y] == 0
 
 
