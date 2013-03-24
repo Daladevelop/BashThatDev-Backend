@@ -66,6 +66,7 @@ class Player(Rect):
     jump_force = 1.0
     width = 1./48
     height = 1./48
+    gravity = 0.05
 
     def __init__(self, uid, start_x, start_y):
         Rect.__init__(self, start_x, start_y,
@@ -115,6 +116,7 @@ class Player(Rect):
         """Update physics on object"""
         self.velx += self.forcex
         self.vely += self.forcey
+        self.vely += Player.gravity
         self.x += self.velx
         self.y += self.vely
         print "x=%.2f y=%.2f xv=%.2f yv=%.2f" % (self.x, self.y,
@@ -139,6 +141,7 @@ class Player(Rect):
         if not world.is_passable(bot_cent.x, bot_cent.y):
             #self.y = float(int(self.y))
             self.vely = 0
+            self.velx -= 0.5
 
         # Check if left center is in wall
         l_cent = self.left_center()
