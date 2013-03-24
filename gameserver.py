@@ -1,13 +1,13 @@
 import world
 from world import Player, World
-
+import time
 class GameEngine:
 	def __init__(self):
 		self.clients = {}
 		self.keys = {32:'jump', 37:'left', 38:'up', 39:'right', 40:'down'}
 
 		self.world = world._create_test_world()
-
+		self.last_time = 0
 
 	def handle(self, msg,peerstr):
 		msg_type = msg['type']
@@ -33,8 +33,10 @@ class GameEngine:
 
 
 	def update(self):
+		dt = time.time() - self.last_time
+		self.last_time = time.time() # i do it here but i could do it... there
 		for client in self.clients.values():
-			client.update(self.world)	
+			client.update(dt,self.world)	
 
 	def get_state(self):
 		state = {}
