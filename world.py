@@ -13,6 +13,7 @@ class World:
 
     def is_passable(self, x, y):
         x, y = int(x), int(y)
+	print "World.is_passable(%s, %s)" % (x, y)
         if x < 0 or x >= self.width:
             return False
         if y < 0 or y >= self.height:
@@ -46,26 +47,26 @@ class Rect:
         return self.y + self.h
 
     def center(self):
-        return Point(self.max_x() / 2, self.max_y() / 2)
+        return Point((self.min_x() + self.max_x()) / 2, (self.min_y() + self.max_y()) / 2)
 
     def left_center(self):
-        return Point(self.min_x(), self.max_y() / 2)
+        return Point(self.min_x(), (self.min_y() + self.max_y()) / 2)
 
     def right_center(self):
-        return Point(self.max_x(), self.max_y() / 2) 
+        return Point(self.max_x(), (self.min_y() + self.max_y()) / 2) 
 
     def top_center(self):
-        return Point(self.max_x() / 2, self.min_y())
+        return Point((self.min_x() + self.max_x()) / 2, self.min_y())
 
     def bottom_center(self):
-        return Point(self.max_x() / 2, self.max_y())
+        return Point((self.min_x() + self.max_x()) / 2, self.max_y())
 
 
 class Player(Rect):
     speed = 0.1
     jump_force = 1.0
-    width = 1./48
-    height = 1./48
+    width = 1.
+    height = 1.
     gravity = 0.05
 
     def __init__(self, uid, start_x, start_y):
@@ -97,11 +98,11 @@ class Player(Rect):
             if key == 'right':
                 print "right"
                 self.forcex += Player.speed
-            if key == 'space':
-                print "space"
+            if key == 'jump':
+                print "jump"
                 if not self.jumping:
-                    self.forcey = jump_force
                     self.jumping = True
+                    self.forcey -= Player.jump_force
 
         elif action == 'released':
             print "Key released",
@@ -112,47 +113,52 @@ class Player(Rect):
                 print "right"
                 self.forcex -= Player.speed
 
-    def update(self, world):
+    def update(self, dt, world):
         """Update physics on object"""
         self.velx += self.forcex
         self.vely += self.forcey
+
+        if self.jumping == True:
+            self.jumping = False
+            self.forcey += Player.jump_force
+
         self.vely += Player.gravity
         self.x += self.velx
         self.y += self.vely
         print "x=%.2f y=%.2f xv=%.2f yv=%.2f" % (self.x, self.y,
                 self.velx, self.vely)
 
-        if self.jumping == True:
-            self.jumping = False
-            self.forcey -= Player.jump_force
-
         x, y = self.x, self.y
         width, height = self.width, self.height
 
         # Check if top center is in wall
         top_cent = self.top_center()
+	print "Check top_cent, (%s, %s)" % (top_cent.x, top_cent.y)
         if not world.is_passable(top_cent.x, top_cent.y):
             # Snap to bottom of world tile
-            #self.y = float(int(self.y + 1))
+            self.y = float(int(self.y + 1))
             self.vely = 0
 
         # Check if bottom center is in wall
         bot_cent = self.bottom_center()
+	print "Check bot_cent, (%s, %s)" % (bot_cent.x, bot_cent.y)
         if not world.is_passable(bot_cent.x, bot_cent.y):
-            #self.y = float(int(self.y))
+            self.y = float(int(self.y))
             self.vely = 0
-            self.velx -= 0.5
+            self.velx *= 0.8
 
         # Check if left center is in wall
         l_cent = self.left_center()
+	print "Check l_cent, (%s, %s)" % (l_cent.x, l_cent.y)
         if not world.is_passable(l_cent.x, l_cent.y):
-            #self.x = float(int(self.x + 1))
+            self.x = float(int(self.x + 1))
             self.velx = 0
 
         # Check if right center is in wall
         r_cent = self.right_center()
+	print "Check r_cent, (%s, %s)" % (r_cent.x, r_cent.y)
         if not world.is_passable(r_cent.x, r_cent.y):
-            #self.x = float(int(self.x))
+            self.x = float(int(self.x))
             self.velx = 0
 
     def get_state(self):
