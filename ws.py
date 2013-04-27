@@ -27,7 +27,7 @@ class BroadcastProtocol(WebSocketServerProtocol):
 			gameserver.handle(json_data, self.peerstr)
 
 	def connectionLost(self,reason):
-		print "CONNECTION LOST"
+		print "CONNECTION LOST %s" % reason
 		WebSocketServerProtocol.connectionLost(self,reason)
 		self.factory.unregister(self)
 
