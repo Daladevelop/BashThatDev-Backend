@@ -6,8 +6,13 @@ from autobahn.websocket import WebSocketServerFactory, WebSocketServerProtocol, 
 
 from gameserver import *
 import json
+import base64
 gameserver = GameEngine()
-
+data = {'msg': 'hello'}
+pix = {}
+pix['player_1'] = "data:image/png;base64," + base64.b64encode(open('sprite.png').read())
+data['pix'] = pix
+hellomsg = json.dumps(data)
 class BroadcastProtocol(WebSocketServerProtocol):
 	def onOpen(self):
 		self.factory.register(self)
@@ -27,7 +32,7 @@ class BroadcastProtocol(WebSocketServerProtocol):
 			gameserver.handle(json_data, self.peerstr)
 
 	def connectionLost(self,reason):
-		print "CONNECTION LOST"
+		print "CONNECTION LOST %s" % reason
 		WebSocketServerProtocol.connectionLost(self,reason)
 		self.factory.unregister(self)
 
@@ -56,6 +61,7 @@ class BroadcastFactory(WebSocketServerFactory):
 			print "registered: " + client.peerstr
 			self.clients.append(client)
 			gameserver.add_client(client.peerstr)
+			client.sendMessage(hellomsg)
 		else:
 			print "client client already..."
 
