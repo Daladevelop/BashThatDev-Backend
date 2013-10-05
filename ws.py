@@ -13,7 +13,7 @@ pix = {}
 pix['dood'] = "data:image/png;base64," + base64.b64encode(open('sprite.png').read())
 data['pix'] = pix
 hellomsg = json.dumps(data)
-TICKTIME = .1
+TICKTIME = .01
 
 class BroadcastProtocol(WebSocketServerProtocol):
 	def onOpen(self):
