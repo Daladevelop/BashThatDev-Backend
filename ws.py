@@ -10,9 +10,11 @@ import base64
 gameserver = GameEngine()
 data = {'msg': 'hello'}
 pix = {}
-pix['player_1'] = "data:image/png;base64," + base64.b64encode(open('sprite.png').read())
+pix['dood'] = "data:image/png;base64," + base64.b64encode(open('sprite.png').read())
 data['pix'] = pix
 hellomsg = json.dumps(data)
+TICKTIME = 0.01
+
 class BroadcastProtocol(WebSocketServerProtocol):
 	def onOpen(self):
 		self.factory.register(self)
@@ -53,7 +55,7 @@ class BroadcastFactory(WebSocketServerFactory):
 #		self.broadcast("TICK")
 		gameserver.update()
 		self.broadcast(json.dumps(gameserver.get_state()))
-		reactor.callLater(0.05, self.tick)
+		reactor.callLater(TICKTIME, self.tick)
 
 	def register(self, client):
 		print "register"
