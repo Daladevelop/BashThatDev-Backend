@@ -2,7 +2,8 @@
 import random
 import sys
 from player import Player
-MAP_SIZE = (40,100)
+import random
+MAP_SIZE = (40,9900)
 class World:
 	def __init__(self, width, height):
 		self.width = width
@@ -11,6 +12,7 @@ class World:
 
 		self.camera_width = 40
 		self.camera_height = 20
+		self.camera_offset = 0.0
 
 		self.offset = [0,0]
 
@@ -26,8 +28,8 @@ class World:
 			center_y = self.camera_height
 			c = True
 		tiles = []
-		if not c and (center_y % 4) == 0:
-			center_y = center_y - 1
+		if not c:
+			center_y = center_y - (self.camera_height/2)
 		self.offset[1] = center_y
 		for i in range(0, self.camera_width):
 			l = []
@@ -66,7 +68,7 @@ def _create_test_world():
 		world[0][y] = 1
 		world[world.width - 1][y] = 1
 		x = random.randint(1,world.width-5)
-		for i in range(5):
+		for i in range(random.randint(1,2)):
 			world[x+i][y] = 1
 	# Write platforms
 	for x in range(world.width - 5):

@@ -8,7 +8,7 @@ from gameserver import *
 import json
 import base64
 gameserver = GameEngine()
-data = {'msg': 'hello'}
+data = {'msg': 'hello', 'music' : {'url': 'http://daladevelop.se/~madbear/front/InGame.mp3', 'autostart': True, 'loop' : True }}
 pix = {}
 pix['dood'] = "data:image/png;base64," + base64.b64encode(open('sprite.png').read())
 data['pix'] = pix

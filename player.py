@@ -95,7 +95,7 @@ class Player(Rect):
 		if not world.is_passable(l_cent.x, l_cent.y):
 			self.x = float(int(self.x + 1))
 			self.velx = 0
-			self.in_air = False
+			#self.in_air = False
 
 		# Check if right center is in wall
 		r_cent = self.right_center()
@@ -103,7 +103,7 @@ class Player(Rect):
 		if not world.is_passable(r_cent.x, r_cent.y):
 			self.x = float(int(self.x))
 			self.velx = 0
-			self.in_air = False
+			#self.in_air = False
 
 	def get_state(self,offset):
 		state = {}
@@ -112,5 +112,5 @@ class Player(Rect):
 		state['vel_x'] = self.velx
 		state['vel_y'] = self.vely
 		state['is_jumping'] = self.jumping
-		state['self.in_air'] = self.in_air
+		state['in_air'] = self.in_air
 		return state	

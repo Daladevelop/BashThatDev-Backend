@@ -1,5 +1,7 @@
 import world
 from world import Player, World
+import world
+PLAYER_BOT=world.MAP_SIZE[1]-5
 import time
 #test
 class GameEngine:
@@ -24,7 +26,7 @@ class GameEngine:
 		if peerstr in self.clients.keys():
 			print "du har kodat apa"
 		else:
-			self.clients[peerstr] = Player(peerstr, 2, 90)
+			self.clients[peerstr] = Player(peerstr, 2, PLAYER_BOT)
 
 	def remove_client(self, peerstr):
 		try:
@@ -47,7 +49,9 @@ class GameEngine:
 			state['players'].append(client.get_state(self.world.get_offset()))
 			if client.y	< highest_player:
 				highest_player = client.y 
-
+				self.world.camera_offset = client.y - int(client.y)
+		print "Offset:" + str(self.world.camera_offset)
+		state['offset'] = self.world.camera_offset
 		state['world_width'] = self.world.camera_width
 		state['world_height'] = self.world.camera_height
 		#state['world_tiles'] = self.world.tiles
