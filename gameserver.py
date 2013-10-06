@@ -51,7 +51,7 @@ class GameEngine:
 		state['world_width'] = self.world.camera_width
 		state['world_height'] = self.world.camera_height
 		#state['world_tiles'] = self.world.tiles
-		print "HIGHEST: " + str(int(highest_player))
+		#print "HIGHEST: " + str(int(highest_player))
 		state['world_tiles'] = self.world.get_tiles(int(highest_player))
 
 		return state

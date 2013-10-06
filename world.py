@@ -2,7 +2,7 @@
 import random
 import sys
 from player import Player
-MAP_SIZE = (40,1000)
+MAP_SIZE = (40,100)
 class World:
 	def __init__(self, width, height):
 		self.width = width
@@ -16,6 +16,9 @@ class World:
 
 	def get_tiles(self, center_y):
 		c = False
+
+
+		#check to see if camera normally would show anything above or under the map
 		if center_y + self.camera_height > self.height:
 			center_y = self.height - self.camera_height
 			c = True
@@ -23,16 +26,12 @@ class World:
 			center_y = self.camera_height
 			c = True
 		tiles = []
-		if not c:
-			center_y = center_y - 4
+		if not c and (center_y % 4) == 0:
+			center_y = center_y - 1
 		self.offset[1] = center_y
 		for i in range(0, self.camera_width):
 			l = []
 			for j in range(0, self.camera_height):
-				#print self.width
-				#print self.height 
-				#print "i:" + str(i+(center_y-self.camera_height)) + " j:" + str(j) 
-#				l.append(sel0f.tiles[i+(center_y-self.camera_height)][j])
 				l.append(self.tiles[i][center_y+j])
 			tiles.append(l)
 		return tiles

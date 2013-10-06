@@ -6,7 +6,7 @@ class Player(Rect):
 	jump_force = 20.0
 	width = 1.
 	height = 1.
-	gravity = 0.34/100
+	gravity = 0.34/10
 
 	def __init__(self, uid, start_x, start_y):
 		Rect.__init__(self, start_x, start_y,
@@ -64,7 +64,7 @@ class Player(Rect):
 			self.forcey += Player.jump_force
 			self.jumping = False
 
-		self.vely += Player.gravity
+		self.vely += Player.gravity#*dt
 		self.x += self.velx
 		self.y += self.vely
 		#print "x=%.2f y=%.2f xv=%.2f yv=%.2f" % (self.x, self.y, self.velx, self.vely)
@@ -112,6 +112,5 @@ class Player(Rect):
 		state['vel_x'] = self.velx
 		state['vel_y'] = self.vely
 		state['is_jumping'] = self.jumping
-		print self.y
 		state['self.in_air'] = self.in_air
 		return state	
