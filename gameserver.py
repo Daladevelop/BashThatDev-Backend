@@ -50,12 +50,15 @@ class GameEngine:
 			if client.y	< highest_player:
 				highest_player = client.y 
 				self.world.camera_offset = client.y - int(client.y)
-		print "Offset:" + str(self.world.camera_offset)
-		state['offset'] = self.world.camera_offset
+ 
+		if self.world.use_offset:
+			state['camera_offset'] = self.world.camera_offset
+			state['user_offset'] = self.world.camera_height/2 
+		else:
+			state['camera_offset'] = 0.0
+			state['user_offset'] = 0
 		state['world_width'] = self.world.camera_width
 		state['world_height'] = self.world.camera_height
-		#state['world_tiles'] = self.world.tiles
-		#print "HIGHEST: " + str(int(highest_player))
 		state['world_tiles'] = self.world.get_tiles(int(highest_player))
 
 		return state

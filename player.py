@@ -6,7 +6,7 @@ class Player(Rect):
 	jump_force = 20.0
 	width = 1.
 	height = 1.
-	gravity = 0.34/10
+	gravity = 1.23/100
 
 	def __init__(self, uid, start_x, start_y):
 		Rect.__init__(self, start_x, start_y,

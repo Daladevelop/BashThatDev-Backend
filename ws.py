@@ -8,12 +8,13 @@ from gameserver import *
 import json
 import base64
 gameserver = GameEngine()
-data = {'msg': 'hello', 'music' : {'url': 'http://daladevelop.se/~madbear/front/InGame.mp3', 'autostart': True, 'loop' : True }}
+data = {'msg': 'hello'} #,'music' : {'url': 'http://daladevelop.se/~madbear/front/InGame.mp3', 'autostart': True, 'loop' : True }}
 pix = {}
 pix['dood'] = "data:image/png;base64," + base64.b64encode(open('sprite.png').read())
 data['pix'] = pix
 hellomsg = json.dumps(data)
-TICKTIME = .05
+PORT = 1338
+TICKTIME = .02
 
 class BroadcastProtocol(WebSocketServerProtocol):
 	def onOpen(self):
@@ -29,7 +30,6 @@ class BroadcastProtocol(WebSocketServerProtocol):
 		except ValueError:
 			pass
 
-		print msg
 		if json_data is not None:
 			gameserver.handle(json_data, self.peerstr)
 
@@ -84,7 +84,7 @@ class BroadcastFactory(WebSocketServerFactory):
 	
 if __name__ == "__main__":
 	ServerFactory = BroadcastFactory
-	factory = ServerFactory("ws://localhost:1337", debug = True)
+	factory = ServerFactory("ws://localhost:{}".format(PORT), debug = True)
 	factory.protocol = BroadcastProtocol
 	listenWS(factory)
 	reactor.run()
