@@ -33,8 +33,6 @@ class Player(Rect):
 
         """
 
-        logger.debug("Handling key event: %s, %s" % (action, key))
-
         if action == 'pressed':
             #print "Key pressed",
             if key == 'left':
