@@ -6,7 +6,7 @@ import time
 import logging
 #test
 
-campadding_y = 3
+campadding_y = 5
 logger = logging.getLogger(__name__)
 
 class GameEngine:
@@ -48,20 +48,20 @@ class GameEngine:
 
 	def get_state(self):
 		state = {}
-		cam_y = 0
-		highest_player = self.world.height
+		cam_y = self.world.height
 		state['players'] = []
 
 		#loop through clients
 		for client in self.clients.values():
 			#if current player is the highest
-			if client.y	< highest_player:
+			if client.y	< cam_y:
 				cam_y = client.y - campadding_y
 				self.world.camera_offset = client.y - int(client.y)
 			
 			#append player
 			state['players'].append( client.get_state( cam_y ) )
-		
+		print state['players']
+		print 
 
 		state['world_width'] = self.world.camera_width
 		state['world_height'] = self.world.camera_height
