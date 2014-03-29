@@ -32,9 +32,9 @@ sprites.append({ 'name': 'player',
                  'data': 'data:image/png;base64,%s' %
                  base64.b64encode(open('sprite.png').read()) })
 sound_effects.append({ 'name': 'jump',
-                       'url': 'http://localhost:8888/BashThatDev-Frontend/local_assets/jump.mp3'})
+                       'url': 'audio/jump.mp3'})
 sound_effects.append({ 'name': 'moose_scream',
-                       'url': 'http://localhost:8888/BashThatDev-Frontend/local_assets/oops.mp3'})
+                       'url': 'audio/oops.mp3'})
 
 data = {}
 data['sprites'] = sprites
