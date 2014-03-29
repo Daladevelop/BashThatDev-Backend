@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 class Player(Rect):
 	speed = 1.2
-	jump_force = 0.0
+	jump_force = 20.0
 	width = 1.
 	height = 1.
 	gravity = 1.23/100
@@ -115,5 +115,5 @@ class Player(Rect):
 		state['in_air'] = self.in_air
 		state['sfx_playlist'] = self.sfx_playlist
 		self.sfx_playlist = []
-
+		print state['pos_y']
 		return state	
