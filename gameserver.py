@@ -4,6 +4,9 @@ import world
 PLAYER_BOT=world.MAP_SIZE[1]-5
 import time
 #test
+
+campadding_y = 3
+
 class GameEngine:
 	def __init__(self):
 		self.clients = {}
@@ -43,19 +46,21 @@ class GameEngine:
 
 	def get_state(self):
 		state = {}
+		cam_y = 0
 		highest_player = self.world.height
 		state['players'] = []
 		for client in self.clients.values():
-			state['players'].append(client.get_state(self.world.get_offset()))
+			#if current player is the highest
 			if client.y	< highest_player:
-				highest_player = client.y 
+				cam_y = client.y - campadding_y
 				self.world.camera_offset = client.y - int(client.y)
-		print "Offset:" + str(self.world.camera_offset)
-		state['offset'] = self.world.camera_offset
+			
+			#append player
+			state['players'].append( client.get_state( cam_y ) )
+		
+
 		state['world_width'] = self.world.camera_width
 		state['world_height'] = self.world.camera_height
-		#state['world_tiles'] = self.world.tiles
-		#print "HIGHEST: " + str(int(highest_player))
-		state['world_tiles'] = self.world.get_tiles(int(highest_player))
+		state['world_tiles'] = self.world.get_visible_tiles(int(cam_y))
 
 		return state
