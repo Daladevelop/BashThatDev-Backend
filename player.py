@@ -32,7 +32,6 @@ class Player(Rect):
 
 		"""
 
-        logger.debug("Handling key event: %s, %s" % (action, key))
 
 		if action == 'pressed':
 			#print "Key pressed",
@@ -110,6 +109,7 @@ class Player(Rect):
 			#self.in_air = False
 
 	def get_state(self,offset):
+		logger.debug("Player offset: %s", offset[1])
 		state = {}
 		state['pos_x'] = self.x
 		state['pos_y'] = self.y - offset[1]
