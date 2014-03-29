@@ -51,12 +51,20 @@ class GameEngine:
 		cam_y = self.world.height
 		state['players'] = []
 
+		min_y = self.world.height
+		for client in self.clients.values():
+			if client.y < min_y:
+				min_y = client.y
+			
+
+		cam_y = min_y - campadding_y
+
 		#loop through clients
 		for client in self.clients.values():
 			#if current player is the highest
-			if client.y	< cam_y:
-				cam_y = client.y - campadding_y
-				self.world.camera_offset = client.y - int(client.y)
+			print "client_y" + str(client.y)
+			print "cam_y" + str(cam_y)
+	#			self.world.camera_offset = client.y - int(client.y)
 			
 			#append player
 			state['players'].append( client.get_state( cam_y ) )
