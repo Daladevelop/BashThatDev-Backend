@@ -1,6 +1,10 @@
 from rect import Rect
 from point import Point
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 class Player(Rect):
 	speed = 1.2
 	jump_force = 20.0
@@ -28,30 +32,30 @@ class Player(Rect):
 
 		"""
 
-		print "Key received: action(%s), key(%s)" % (action, key)
+        logger.debug("Handling key event: %s, %s" % (action, key))
 
 		if action == 'pressed':
-			print "Key pressed",
+			#print "Key pressed",
 			if key == 'left':
-				print "left"
+				#print "left"
 				self.forcex += -Player.speed
 			if key == 'right':
-				print "right"
+				#print "right"
 				self.forcex += Player.speed
 			if key == 'jump':
-				print "jump"
+				#print "jump"
 				if not self.jumping and not self.in_air:
 					self.jumping = True
 					self.forcey -= Player.jump_force
 
 		elif action == 'released':
-			print "Key released",
+			#print "Key released",
 			if key == 'left':
-				print "left"
+				#print "left"
 				self.forcex = 0# -= -Player.speed
 				self.velx = 0
 			if key == 'right':
-				print "right"
+				#print "right"
 				self.forcex  = 0#-= Player.speed
 				self.velx = 0
 
