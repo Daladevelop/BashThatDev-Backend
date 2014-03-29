@@ -14,14 +14,34 @@ import base64
 import log, logging
 
 gameserver = GameEngine()
-data = {'msg': 'hello'} #,'music' : {'url': 'http://daladevelop.se/~madbear/front/InGame.mp3', 'autostart': True, 'loop' : True }}
-pix = {}
-pix['dood'] = ("data:image/png;base64,%s" %
-        base64.b64encode(open('sprite.png').read()))
-data['pix'] = pix
-hellomsg = json.dumps(data)
 PORT = 1338
 TICKTIME = .02
+
+
+#data = {'msg': 'hello'}
+#pix = {}
+#pix['dood'] = ("data:image/png;base64,%s" % base64.b64encode(open('sprite.png').read()))
+#data['msg'] = 'hello'
+#data['pix'] = pix
+
+sprites = []
+sound_effects = []
+music_tracks = []
+
+sprites.append({ 'name': 'player',
+                 'data': 'data:image/png;base64,%s' %
+                 base64.b64encode(open('sprite.png').read()) })
+sound_effects.append({ 'name': 'jump',
+                       'url': 'http://localhost:8888/BashThatDev-Frontend/local_assets/jump.mp3'})
+sound_effects.append({ 'name': 'moose_scream',
+                       'url': 'http://localhost:8888/BashThatDev-Frontend/local_assets/oops.mp3'})
+
+data = {}
+data['sprites'] = sprites
+data['music_tracks'] = []
+data['sound_effects'] = sound_effects
+
+hellomsg = json.dumps(data)
 
 logger = logging.getLogger(__name__)
 
