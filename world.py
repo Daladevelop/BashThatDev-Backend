@@ -17,7 +17,7 @@ class World:
 		#check to see if camera normally would show anything above or under the map
 		self.use_offset = False
 
-	def get_tiles(self, center_y):
+	def get_visible_tiles(self, center_y):
 		c = False
 
 
@@ -72,8 +72,8 @@ def _create_test_world():
 		world[world.width - 1][y] = 1
 
 	x = random.randint(1,world.width-7)
-		for i in range(random.randint(3,7)):
-			world[x+i][y] = 1
+	for i in range(random.randint(3,7)):
+		world[x+i][y] = 1
 	# Write platforms on bottom
 	for x in range(world.width - 5):
 		world[x][world.height - 4] = 1
