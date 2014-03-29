@@ -1,12 +1,16 @@
 from rect import Rect
 from point import Point
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 class Player(Rect):
 	speed = 1.2
 	jump_force = 40.0
 	width = 1.
 	height = 1.
-	gravity = 0.34/10
+	gravity = 1.23/100
 
 	def __init__(self, uid, start_x, start_y):
 		Rect.__init__(self, start_x, start_y,
@@ -28,7 +32,6 @@ class Player(Rect):
 
 		"""
 
-		#print "Key received: action(%s), key(%s)" % (action, key)
 
 		if action == 'pressed':
 			#print "Key pressed",
@@ -106,6 +109,7 @@ class Player(Rect):
 			#self.in_air = False
 
 	def get_state(self,cam_y):
+		logger.debug("Player offset: %s", offset[1])
 		state = {}
 		state['pos_x'] = self.x
 		state['pos_y'] = self.y - cam_y

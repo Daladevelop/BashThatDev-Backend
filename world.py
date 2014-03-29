@@ -14,23 +14,32 @@ class World:
 		self.camera_height = 20
 		self.camera_offset = 0.0
 		self.offset = [0,0]
+		#check to see if camera normally would show anything above or under the map
+		self.use_offset = False
 
-	def get_visible_tiles(self, cam_y):
-		
-		
-		visible_tiles = []
+	def get_tiles(self, center_y):
+		c = False
 
-		for x in range(0, self.camera_width):
-			row = []
-			for y in range(0, self.camera_height):
-				if cam_y +y >= self.height:
-					row.append(self.tiles[0][0])
-					
-				else:
-					row.append(self.tiles[x][cam_y + y])
-			visible_tiles.append(row)
 
-		return visible_tiles
+		#check to see if camera normally would show anything above or under the map
+		self.use_offset = False
+		if center_y + self.camera_height > self.height:
+			center_y = self.height - self.camera_height
+			c = True
+		if center_y - self.camera_height < 0:
+			center_y = self.camera_height
+			c = True
+		tiles = []
+		if not c:
+			center_y = center_y - (self.camera_height/2)
+			self.use_offset = True
+		self.offset[1] = center_y
+		for i in range(0, self.camera_width):
+			l = []
+			for j in range(0, self.camera_height):
+				l.append(self.tiles[i][center_y+j])
+			tiles.append(l)
+		return tiles
 
 	def __getitem__(self, index):
 		return self.tiles[index]
@@ -61,10 +70,9 @@ def _create_test_world():
 	for y in range(world.height):
 		world[0][y] = 1
 		world[world.width - 1][y] = 1
-		
-		#write platforms in air
-		x = random.randint(1,world.width-5)
-		for i in range(random.randint(3,5)):
+
+	x = random.randint(1,world.width-7)
+		for i in range(random.randint(3,7)):
 			world[x+i][y] = 1
 	# Write platforms on bottom
 	for x in range(world.width - 5):

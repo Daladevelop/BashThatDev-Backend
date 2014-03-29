@@ -3,9 +3,11 @@ from world import Player, World
 import world
 PLAYER_BOT=world.MAP_SIZE[1]-5
 import time
+import logging
 #test
 
 campadding_y = 3
+logger = logging.getLogger(__name__)
 
 class GameEngine:
 	def __init__(self):
@@ -14,7 +16,7 @@ class GameEngine:
 
 		self.world = world._create_test_world()
 		self.last_time = 0
-
+		
 	def handle(self, msg,peerstr):
 		msg_type = msg['type']
 		key = None
@@ -49,6 +51,8 @@ class GameEngine:
 		cam_y = 0
 		highest_player = self.world.height
 		state['players'] = []
+
+		#loop through clients
 		for client in self.clients.values():
 			#if current player is the highest
 			if client.y	< highest_player:
