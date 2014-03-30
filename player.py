@@ -11,6 +11,7 @@ class Player(Rect):
 	width = 1.
 	height = 1.
 	gravity = 1.23/100
+	direction = 1 #right
 
 	def __init__(self, uid, start_x, start_y):
 		Rect.__init__(self, start_x, start_y,
@@ -38,9 +39,11 @@ class Player(Rect):
 			if key == 'left':
 				#print "left"
 				self.forcex += -Player.speed
+				self.direction = 0
 			if key == 'right':
 				#print "right"
 				self.forcex += Player.speed
+				self.direction = 1
 			if key == 'jump':
 				#print "jump"
 				if not self.jumping and not self.in_air:
@@ -114,6 +117,7 @@ class Player(Rect):
 		state['is_jumping'] = self.jumping
 		state['in_air'] = self.in_air
 		state['sfx_playlist'] = self.sfx_playlist
+		state['direction'] = self.direction
+			
 		self.sfx_playlist = []
-		print state['pos_y']
 		return state	
