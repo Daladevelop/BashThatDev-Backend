@@ -30,7 +30,7 @@ music_tracks = []
 
 sprites.append({ 'name': 'player',
                  'data': 'data:image/png;base64,%s' %
-                 base64.b64encode(open('sprite.png').read()) })
+                 base64.b64encode(open('assets/graphics/sprite.png').read()) })
 sound_effects.append({ 'name': 'jump',
                        'url': 'audio/jump.mp3'})
 sound_effects.append({ 'name': 'moose_scream',
