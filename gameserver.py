@@ -61,13 +61,9 @@ class GameEngine:
 
 		#loop through clients
 		for client in self.clients.values():
-			#if current player is the highest
-			print "client_y" + str(client.y)
-			print "cam_y" + str(cam_y)
-			
 			#append player
 			state['players'].append( client.get_state( cam_y ) )
-
+		print state['players']
 		state['camera_offset'] = self.world.camera_offset
 		state['world_width'] = self.world.camera_width
 		state['world_height'] = self.world.camera_height
