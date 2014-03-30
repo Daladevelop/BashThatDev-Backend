@@ -55,7 +55,7 @@ class GameEngine:
 		for client in self.clients.values():
 			if client.y < min_y:
 				min_y = client.y
-			
+				self.world.camera_offset = client.y - int(client.y)
 
 		cam_y = min_y - campadding_y
 
@@ -64,13 +64,11 @@ class GameEngine:
 			#if current player is the highest
 			print "client_y" + str(client.y)
 			print "cam_y" + str(cam_y)
-	#			self.world.camera_offset = client.y - int(client.y)
 			
 			#append player
 			state['players'].append( client.get_state( cam_y ) )
-		print state['players']
-		print 
 
+		state['camera_offset'] = self.world.camera_offset
 		state['world_width'] = self.world.camera_width
 		state['world_height'] = self.world.camera_height
 		state['world_tiles'] = self.world.get_visible_tiles(int(cam_y))
