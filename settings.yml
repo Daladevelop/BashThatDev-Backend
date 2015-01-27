@@ -1,0 +1,30 @@
+#
+# What's in the box? A base box!
+#
+# This is the one and only settings file, used by Vagrantfile and bootstrap.sh
+#
+# The settings should be self explanatory, but here are some notes.
+#
+# If you do not want to use mailcatcher, mailcatcher hostname like so:
+#
+# mailcatcher:
+#   install: "no"
+#   hostname:
+#
+# otherwise you'll have this hostname added to your /etc/hosts
+#
+# project:
+#   title: "This title is used in package.json"
+#
+
+project:
+  title: "Bash that"
+
+box:
+  ip: "172.10.1.99"
+  netmask: "255.255.255.0"
+  hostname: "moosegame.jump"
+  hostalias: "www.moosegame.jump"
+  memory: 1024
+  gui: false
+

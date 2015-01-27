@@ -1,0 +1,24 @@
+body{background-color: #000; }
+
+
+div.gameon{
+	width: 960px; 
+	height: 480px; 
+	margin: 0 auto; 
+	
+   	position: relative; 	
+}
+
+canvas.gamecanvas{
+	width: 960px; 
+	height: 480px; 
+	position: absolute; 
+	top: 0;  
+	z-index: -100;
+	background: url("px/backgroundtrees.png"); 
+}
+
+canvas.gamecanvas.active
+{
+	z-index: 100; 
+}

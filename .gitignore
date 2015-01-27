@@ -2,3 +2,5 @@
 *.swp
 *DS_Store
 run.log
+import/build
+.vagrant
